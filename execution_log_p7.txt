@@ -1,0 +1,237 @@
+================================================================================
+             AUTORENT SYSTEM - MODUL 7: ABSTRAKSI & INTERFACE                   
+       PROJECT BASED LEARNING + AGILE SPRINT FRAMEWORK (SPRINT 7)              
+--------------------------------------------------------------------------------
+ Nama Mahasiswa : Ahmad Yasar Maulana Dais                                      
+ NRP            : 3125522018                                                    
+ Program Studi  : D3 Teknik Informatika - PENS PSDKU Sumenep (2026)             
+ Dosen Pengampu : Nirwana Haidar Hari, S.Pd., M.Kom.                            
+ Topik Modul 7  : Abstract Class, Abstract Method, Interface & Polymorphism    
+================================================================================
+
++------------------------------------------------------------------------------+
+| FASE 1: AUDIT & PEMBUKTIAN LARANGAN INSTANSIASI ABSTRACT CLASS               |
++------------------------------------------------------------------------------+
+  Pada Modul 7, superclass Kendaraan dan Person dideklarasikan sebagai 'abstract'.
+  Artinya, kode berikut TIDAK BOLEH dikompilasi oleh Java Compiler:
+    // Kendaraan k = new Kendaraan(...); // COMPILE ERROR: Kendaraan is abstract
+    // Person p = new Person(...);       // COMPILE ERROR: Person is abstract
+  [VERIFIKASI DESAIN] Abstraction menjamin entitas umum tidak dapat diinstansiasi langsung.
+  Hanya subclass konkrit yang dapat diinstansiasi di Heap Memory.
+
++------------------------------------------------------------------------------+
+| FASE 2: INSTANSIASI SUBCLASS KONKRET & VALIDASI KONSTRUKTOR DEFENSIVE        |
++------------------------------------------------------------------------------+
+  [OK] Berhasil menginstansiasi objek Mobil    : Avanza Veloz [M 1001 HA]
+  [OK] Berhasil menginstansiasi objek Motor    : NMAX 155 Connected [M 2002 HB]
+  [OK] Berhasil menginstansiasi objek Minibus  : HiAce Premio Luxury [M 3003 HC]
+  [OK] Berhasil menginstansiasi objek Pelanggan: Budi Pratama [PLG-001]
+  [OK] Berhasil menginstansiasi objek Pegawai  : Siti Aminah [NIK-2026-004]
+
++------------------------------------------------------------------------------+
+| FASE 3: PENGUJIAN POLYMORPHISM VIA SUPERCLASS ABSTRACT REFERENCE             |
++------------------------------------------------------------------------------+
+  Memanggil abstract method melalui reference Superclass Abstract (Upcasting):
+
+  >>> [1] Pemanggilan refK1.tampilkanSpesifikasi() (Tipe Ref: Kendaraan, Objek: Mobil):
+  ================ SPESIFIKASI MOBIL ================
+  Nomor Plat   : M 1001 HA
+  Merk/Model   : Toyota Avanza Veloz (2023)
+  Kategori     : Mobil Penumpang
+  Tarif Sewa   : Rp 400.000,00 / hari
+  Transmisi    : Automatic | Kapasitas: 7 Penumpang
+  Fasilitas AC : Dingin Dual-Zone
+  Posisi GPS   : Garasi Utama PENS Sumenep (-7.0051, 113.8604)
+  Mesin        : 1500 CC [Bensin Pertamax] | Oli: 100% | Status: SIAP DISEWA
+  ====================================================
+  >>> [2] Pemanggilan refK2.tampilkanSpesifikasi() (Tipe Ref: Kendaraan, Objek: Motor):
+  ================ SPESIFIKASI MOTOR ================
+  Nomor Plat   : M 2002 HB
+  Merk/Model   : Yamaha NMAX 155 Connected (2024)
+  Kategori     : Sepeda Motor
+  Tarif Sewa   : Rp 150.000,00 / hari
+  Jenis Motor  : Matic | Bagasi Helm: 2 unit
+  Jas Hujan    : Tersedia 2 Pasang (Steril)
+  Posisi GPS   : Garasi Shelter PENS Sumenep (-7.0055, 113.8610)
+  Mesin        : 155 CC [Bensin Pertamax] | Oli: 100% | Status: SIAP DISEWA
+  ====================================================
+  >>> [3] Pemanggilan refK3.tampilkanSpesifikasi() (Tipe Ref: Kendaraan, Objek: Minibus):
+  =============== SPESIFIKASI MINIBUS ===============
+  Nomor Plat   : M 3003 HC
+  Merk/Model   : Toyota HiAce Premio Luxury (2023)
+  Kategori     : Minibus Komersial / Travel
+  Tarif Sewa   : Rp 1.100.000,00 / hari (Exclude Surcharge)
+  Kapasitas    : 14 Kursi Penumpang | Bagasi Atas: Tersedia Roof Rack
+  Hiburan TV   : Karaoke + TV LED | Izin Dishub: TRAYEK-PARIWISATA-JATIM-9988
+  Posisi GPS   : Pool Bus Komersial PENS Sumenep (-7.0040, 113.8590)
+  Mesin Diesel : 2800 CC [Diesel Dexlite] | Oli: 100% | Status: SIAP DISEWA
+  ====================================================
+  >>> [4] Pemanggilan Abstract Method hitungEstimasiBiaya(5 hari) secara Polimorfis:
+      * Estimasi Mobil 5 Hari   : Rp 1.900.000,00 (Diskon Durasi 5%)
+      * Estimasi Motor 5 Hari   : Rp 705.000,00 (Diskon Hemat 6%)
+      * Estimasi Minibus 5 Hari : Rp 5.750.000,00 (Termasuk Surcharge Komersial)
+
+  >>> [5] Pemanggilan Abstract Method Person via Polymorphic Reference:
+  [Profil via Person Ref 1]
+  =============== PROFIL PELANGGAN ===============
+  ID / KTP     : PLG-001 / 3529012345670001
+  Nama Lengkap : Budi Pratama
+  Peran Sistem : Pelanggan Terdaftar / Penyewa Armada AutoRent
+  Kontak       : Telp: 081234567890 | Email: budi.pratama@gmail.com
+  Alamat       : Jl. Trunojoyo No. 45, Sumenep
+  Status Member: Gold (Diskon Hak: 10,0%)
+  Saldo Deposit: Rp 500.000,00
+  Total Sewa   : 0 Transaksi Selesai
+  Reward Poin  : Rp 7.500,00 (Estimasi Cashback)
+  =================================================
+  [Profil via Person Ref 2]
+  ================ PROFIL PEGAWAI ================
+  ID / NIK     : PGW-101 / NIK-2026-004
+  Nama Lengkap : Siti Aminah
+  Jabatan      : Front-Office CS & Fleet Officer
+  Peran Sistem : Staf Operasional & Layanan Pelanggan AutoRent System
+  Kontak       : Telp: 081987654321 | Email: siti.aminah@autorent.com
+  Lokasi Tugas : Kantor Pusat Front-Office Sumenep (-7.0050, 113.8600)
+  Gaji Pokok   : Rp 3.500.000,00
+  Beban Kerja  : 0 Transaksi Sukses Ditangani
+  Total Gaji   : Rp 3.500.000,00 (Termasuk Bonus)
+  =================================================
+
++------------------------------------------------------------------------------+
+| FASE 4: PENGUJIAN INTERFACE POLYMORPHISM (LINTAS HIERARKI CLASS)             |
++------------------------------------------------------------------------------+
+  Interface DapatDilacak direalisasikan oleh Mobil, Motor, Minibus, dan Pegawai!
+
+  * Pelacak [1] Lokasi     : Garasi Utama PENS Sumenep [Koordinat: -7.0051, 113.8604, Status GPS: ONLINE]
+               Status GPS : AKTIF - Terkoneksi 8 Satelit GPS
+               Ping Res   : Ping IoT GPS berhasil dikirimkan ke server AutoRent Telematics Central Gateway.
+  * Pelacak [2] Lokasi     : Garasi Shelter PENS Sumenep [Koordinat: -7.0055, 113.8610, Status GPS: ONLINE]
+               Status GPS : AKTIF - Terkoneksi 6 Satelit IoT
+               Ping Res   : Ping IoT GPS berhasil dikirimkan ke server AutoRent Telematics Central Gateway.
+  * Pelacak [3] Lokasi     : Pool Bus Komersial PENS Sumenep [Koordinat: -7.0040, 113.8590, Status GPS: ONLINE]
+               Status GPS : AKTIF - Terkoneksi 10 Satelit Fleet Tracking
+               Ping Res   : Ping IoT GPS berhasil dikirimkan ke server AutoRent Telematics Central Gateway.
+  * Pelacak [4] Lokasi     : Kantor Pusat Front-Office Sumenep [Koordinat: -7.0050, 113.8600, Status: ON DUTY]
+               Status GPS : AKTIF - Terhubung Smart Tracker Petugas
+               Ping Res   : Ping IoT GPS berhasil dikirimkan ke server AutoRent Telematics Central Gateway.
+
+  Memperbarui lokasi objek secara dinamis via Interface:
+  [GPS UPDATE] Mobil M 1001 HA kini terpantau di: Pelabuhan Kalianget Sumenep (-7.0100, 113.8700)
+  [PETUGAS GPS] Pegawai Siti Aminah (Front-Office CS & Fleet Officer) kini berada di: Pos Layanan Pelabuhan Kalianget (-7.0120, 113.8680)
+
+  >>> Pengujian Interface Perawatan pada Seluruh Kendaraan:
+  * Kelayakan Operasional: LAYAK JALAN
+    Servis berikutnya: Maksimal jarak tempuh 5000 km atau tanggal 2026-12-05 (Terakhir: 2026-03-01)
+  * Kelayakan Operasional: LAYAK JALAN
+    Servis berikutnya: Maksimal jarak tempuh 2500 km atau tanggal 2026-11-20 (Terakhir: 2026-03-05)
+  * Kelayakan Operasional: LAYAK JALAN
+    Servis berikutnya: Maksimal jarak tempuh 4000 km atau tanggal 2026-11-30 (Terakhir: 2026-02-28)
+
++------------------------------------------------------------------------------+
+| FASE 5: HETEROGENEOUS POLYMORPHIC COLLECTIONS (ARRAY & ARRAYLIST)             |
++------------------------------------------------------------------------------+
+  Iterasi Heterogeneous List<Cetakable> (Koleksi Beragam Tipe Objek):
+  -> Ringkasan: MOBIL [M 1001 HA] Toyota Avanza Veloz - 7 Pax - Rp 400.000/hari
+  -> Ringkasan: MOTOR [M 2002 HB] Yamaha NMAX 155 Connected - Matic - Rp 150.000/hari
+  -> Ringkasan: MEMBER [PLG-001] Budi Pratama (Gold) - Saldo: Rp 500.000
+  -> Ringkasan: PEGAWAI [NIK-2026-004] Siti Aminah (Front-Office CS & Fleet Officer) - Total Gaji: Rp 3.500.000
+
++------------------------------------------------------------------------------+
+| FASE 6: PENGUJIAN METHOD OVERLOADING & DEFENSIVE VALIDATION                   |
++------------------------------------------------------------------------------+
+  >>> [1] Overloading hitungEstimasiBiaya() pada Mobil:
+      - Durasi 4 hari reguler        : Rp 1.520.000,00
+      - Durasi 4 hari + Promo 20%    : Rp 1.216.000,00
+      - Durasi 4 hari + Jasa Supir   : Rp 2.120.000,00
+
+  >>> [2] Overloading tambahDeposit() pada Pelanggan:
+  [Deposit Tunai] Berhasil top-up Rp 250.000,00 untuk Pelanggan Budi Pratama. Total Saldo: Rp 750.000,00
+  [Deposit Digital - QRIS BCA Mobile] Ref: QRIS-20261005-9988 | Top-up Rp 500.000,00 sukses untuk Budi Pratama. Total Saldo: Rp 1.250.000,00
+
+  >>> [3] Pengujian Defensive Boundary Handling (Negative Testing):
+  [TANGKAP VALIDASI] Persentase diskon promo harus berada dalam rentang 0% - 50%. Input: 75.0
+  [TANGKAP VALIDASI] Nominal penambahan deposit tunai harus positif.
+  [TANGKAP VALIDASI] Jumlah kursi minibus travel harus dalam rentang 8 - 30 kursi. Input: 4
+
++------------------------------------------------------------------------------+
+| FASE 7: INTEGRASI ALUR BISNIS PENUH & ORKESTRASI RELASI SISTEM (P1 - P7)      |
++------------------------------------------------------------------------------+
+  [GARASI ARMADA] Berhasil menambahkan Mobil Penumpang [M 1001 HA] ke Garasi Sentral AutoRent.
+  [GARASI ARMADA] Berhasil menambahkan Sepeda Motor [M 2002 HB] ke Garasi Sentral AutoRent.
+  [GARASI ARMADA] Berhasil menambahkan Minibus Komersial / Travel [M 3003 HC] ke Garasi Sentral AutoRent.
+
+  >>> Pencarian Unit di Garasi:
+  * Cari Plat 'M 2002 HB' -> Ditemukan: NMAX 155 Connected (Sepeda Motor)
+  * Cari Budget <= Rp 500.000 -> Ditemukan 2 unit armada.
+
+  >>> Membuat Transaksi Sewa Baru (TRX-2026-001)...
+  >>> Memproses Pembayaran Digital Transaksi Sewa...
+  [BAYAR DIGITAL - Transfer Virtual Account Mandiri] Ref: VA-8899-7766-1122 | Transaksi TRX-2026-001 LUNAS! Total: Rp 1.403.000,00
+  >>> Memproses Pengembalian Unit Armada & Penyelesaian Sewa (Pemakaian 350 Km, Tepat Waktu)...
+  [PENGEMBALIAN SUKSES] Armada Avanza Veloz [M 1001 HA] telah dikembalikan ke pool garasi. Status: READY.
+
+  >>> Eksekusi Service Dependency (KuitansiPrinter & LayananNotifikasi):
+  Mencetak Bukti Kuitansi Transaksi:
+================================================================
+                  AUTORENT SYSTEM - RESMI                       
+               BUKTI KUITANSI TRANSAKSI SEWA                    
+================================================================
+Kode Transaksi  : TRX-2026-001         Status: LUNAS
+Pelanggan       : Budi Pratama (ID: PLG-001 | Member: Gold)
+Petugas CS      : Siti Aminah (NIK: NIK-2026-004)
+Unit Armada     : Avanza Veloz [M 1001 HA] - Mobil Penumpang
+Durasi Sewa     : 4 Hari
+----------------------------------------------------------------
+RINCIAN BIAYA :
+  - Sewa Mobil Penumpang (Avanza Veloz) x 4  @ Rp  380.000,00 = Rp 1.520.000,00
+  - Diskon Member Gold (10.0%)     x 1  @ -Rp 152.000,00 = -Rp  152.000,00
+  - Administrasi & Asuransi All-Risk x 1  @ Rp   35.000,00 = Rp    35.000,00
+----------------------------------------------------------------
+TOTAL TAGIHAN   : Rp    1.403.000,00
+TOTAL DIBAYAR   : Rp    1.500.000,00
+STATUS SELESAI  : SELESAI / UNIT KEMBALI
+================================================================
+    Terima kasih telah mempercayakan perjalanan Anda bersama    
+                     AutoRent PENS Sumenep                      
+================================================================
+  Mencetak Kartu Member Digital via Interface Cetakable:
+  [PRINTER UTILITY: Percetakan Digital PENS Sumenep (Izin: IZIN-PRINT-2026-009)]
+====================================================
+             KARTU MEMBER DIGITAL AUTORENT          
+====================================================
+ID Member     : PLG-001
+Nama Lengkap  : Budi Pratama
+Tingkat Member: Gold (Hak Diskon: 10%)
+Saldo Deposit : Rp 1.250.000,00
+Kontak        : 081234567890
+====================================================
+
+  Mencetak Slip Kompensasi Pegawai via Interface Cetakable:
+  [PRINTER UTILITY: Percetakan Digital PENS Sumenep (Izin: IZIN-PRINT-2026-009)]
+====================================================
+             SLIP KOMPENSASI & GAJI PEGAWAI         
+====================================================
+NIK / ID      : NIK-2026-004 / PGW-101
+Nama Pegawai  : Siti Aminah
+Jabatan       : Front-Office CS & Fleet Officer
+Gaji Pokok    : Rp 3.500.000,00
+Bonus Transaksi: Rp 50.000,00 (1 transaksi)
+TOTAL GAJI    : Rp 3.550.000,00
+====================================================
+
+  [NOTIFIKASI GATEWAY - AutoRent Cloud SMS & WA Gateway] Dikirim ke Budi Pratama (081234567890 - budi.pratama@gmail.com) -> "Transaksi TRX-2026-001 telah selesai. Terima kasih telah menggunakan AutoRent!"
+  [MAINTENANCE ALERT] Ke Staf Siti Aminah [081987654321] -> Armada M 1001 HA : Unit telah dikembalikan penyewa dengan oli tersisa 97%
+  [GPS TELEMATICS ALERT via AutoRent Cloud SMS & WA Gateway] Lokasi: Pelabuhan Kalianget Sumenep [Koordinat: -7.0100, 113.8700, Status GPS: ONLINE] | Peringatan: Armada telah kembali terparkir aman di Pos Garasi Utama.
+
++------------------------------------------------------------------------------+
+| FASE 8: RINGKASAN EKSEKUTIF & VERIFIKASI DEFINITION OF DONE (MODUL 7)         |
++------------------------------------------------------------------------------+
+  1. Abstract Class Kendaraan & Person berhasil diimplementasikan.     [TERPENUHI]
+  2. Abstract Methods (hitungEstimasiBiaya, tampilkanSpesifikasi, dll)  [TERPENUHI]
+  3. Minimal 2 Subclass Konkret (Mobil, Motor, Minibus, Pelanggan, dsb) [TERPENUHI]
+  4. Minimal 1 Interface (DapatDilacak, Perawatan, Cetakable)           [TERPENUHI]
+  5. Realisasi Interface pada Minimal 2 Class Lintas Hierarki          [TERPENUHI]
+  6. Pengujian 4+ Skenario Polymorphism Berhasil Sempurna               [TERPENUHI]
+  7. Seluruh Fitur P1-P6 Tetap Terjaga dan Terintegrasi Utuh            [TERPENUHI]
+  STATUS KETERCAPAIAN SPRINT 7 : 100% SUKSES (DEFINITION OF DONE TERCAPAI)
+================================================================================

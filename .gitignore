@@ -1,0 +1,10 @@
+# Compiled Java class files
+bin/
+*.class
+
+# Python bytecode & cache
+__pycache__/
+*.pyc
+
+# Temporary scratch files
+*.log
